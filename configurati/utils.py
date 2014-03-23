@@ -11,7 +11,7 @@ def recursive_apply(obj, key_func=identity, value_func=identity):
   """Recursively apply a function to the keys and values of a nested object"""
   if isinstance(obj, dict):
     result = {}
-    for k, v in obj.items():
+    for k, v in list(obj.items()):
       k = key_func(k)
       result[k] = recursive_apply(v, key_func, value_func)
     return value_func(result)
@@ -44,7 +44,7 @@ def strip_invalid_keys(obj):
 
   if isinstance(obj, dict):
     result = {}
-    for k, v in obj.items():
+    for k, v in list(obj.items()):
       if valid_identifier.search(k) is not None:
         result[k] = strip_invalid_keys(v)
     return result
@@ -62,7 +62,7 @@ def update(o1, o2):
   def update_dict(o1, o2):
     if not isinstance(o2, dict):
       o2 = {}
-    for k, v in o1.items():
+    for k, v in list(o1.items()):
       o2[k] = update(o1[k], o2.get(k, {}))
     return o2
 

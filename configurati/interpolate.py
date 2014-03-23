@@ -1,5 +1,5 @@
 import argparse
-from StringIO import StringIO
+from io import StringIO
 import sys
 import uuid
 
@@ -29,6 +29,6 @@ if __name__ == '__main__':
   # write it back out
 
   if args.format == 'yaml':
-    print yaml.dump(config)
+    print(yaml.dump(config))
   elif args.format == 'json':
-    print json.dumps(config)
+    print(json.dumps(config))
