@@ -132,7 +132,7 @@ def validate_dict(spec, config):
   # for each key-value pair, replace with validated bit or what's already in
   # the config IF the value is in fact a spec definition
   result = {}
-  for k, v in spec.items():
+  for k, v in list(spec.items()):
     if is_spec(v):
       result[k] = _validate(v, config.get(k, Missing))
   return result
@@ -199,7 +199,7 @@ def _validate(spec, config):
 
 def missing_required_keys(spec, config):
   result = []
-  for k, v in spec.unroll().items():
+  for k, v in list(spec.unroll().items()):
     if isinstance(v, required) and k not in config:
       result.append(k)
   return result

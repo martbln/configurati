@@ -31,7 +31,7 @@ class adict(dict):
 
   def unroll(self):
     unrolled = unroll(self)
-    return { k[1:]:v for k, v in unrolled.items() }
+    return { k[1:]:v for k, v in list(unrolled.items()) }
 
 
 class attrs(adict):
@@ -46,12 +46,12 @@ class attrs(adict):
     elif len(args) == 1:
       a = args[0]
       if isinstance(a, dict):
-        a = a.items()
+        a = list(a.items())
     elif len(args) > 1:
       raise TypeError(
           "dict expected at most 1 arguments, got {}".format(len(args))
         )
-    a += kwargs.items()
+    a += list(kwargs.items())
 
     # add them all, one by one
     for k, v in a:
@@ -92,14 +92,14 @@ def is_atomic(key):
 def unroll(a):
   if isinstance(a, dict):
     result = {}
-    for k, v in a.items():
-      for k_, v_ in unroll(v).items():
+    for k, v in list(a.items()):
+      for k_, v_ in list(unroll(v).items()):
         result["." + k + k_] = v_
     return result
   elif isinstance(a, tuple) or isinstance(a, list):
     result = {}
     for k, v, in enumerate(a):
-      for k_, v_ in unroll(v).items():
+      for k_, v_ in list(unroll(v).items()):
         result["[{}]{}".format(k, k_)] = v_
     return result
   else:
@@ -149,7 +149,7 @@ def set(obj, key, value, build=False):
 
     # make an object if `build` and object is missing
     if build and obj is Missing:
-      if isinstance(key, basestring):
+      if isinstance(key, str):
         obj = {}
       elif isinstance(key, int):
         obj = [Missing] * (key + 1)
@@ -188,7 +188,7 @@ def next_key(s):
 
 
 def valid_key(k):
-  if not isinstance(k, basestring):
+  if not isinstance(k, str):
     return False
   else:
     k = '.' + k

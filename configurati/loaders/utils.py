@@ -1,10 +1,19 @@
 import code
 import re
+import sys
+
+
+def isstring(s):
+  """Version of isinstance() that should work with python 2.6/2.7 and python 3+"""
+  if sys.version_info[0] < 3:
+    return isinstance(s, basestring)
+  else:
+    return isinstance(s, str)
 
 
 def substitute(s):
   """Contents of `...` evaluated in Python"""
-  if isinstance(s, basestring) and s.count("`") == 2:
+  if isstring(s) and s.count("`") == 2:
     match = re.search("""^`([^`]+)`$""", s)
     contents, rest = match.group(1), s[match.end():]
     return evaluate(contents)

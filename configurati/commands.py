@@ -34,7 +34,7 @@ def load_config(path, relative_to_caller=False):
 def load_spec(path, relative_to_caller=False):
   """Load a configuration specification"""
   spec = load_config(path, relative_to_caller=relative_to_caller)
-  spec = { k:v for k,v in spec.items()
+  spec = { k:v for k,v in list(spec.items())
            if is_spec(v) }
   return attrs.from_dict(spec)
 

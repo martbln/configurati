@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name         = 'configurati',
-    version      = '0.2.3',
+    version      = '0.2.4',
     author       = 'Daniel Duckworth',
     author_email = 'duckworthd@gmail.com',
     description  = 'Configuration files for Python',
@@ -16,6 +16,8 @@ setup(
       'License :: OSI Approved :: BSD License',
       'Operating System :: OS Independent',
       'Programming Language :: Python',
+      'Programming Language :: Python :: 2',
+      'Programming Language :: Python :: 3',
       'Programming Language :: Python :: Implementation :: CPython',
       'Topic :: Software Development :: Libraries',
     ],
